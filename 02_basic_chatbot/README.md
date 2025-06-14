@@ -1,8 +1,11 @@
-# 02_basic_chatbot
+# Basic Chatbot Collection
 
-This directory contains three Python scripts demonstrating basic chatbot interactions using different language models: OpenAI, Google Gemini, and Ollama.  Each script provides a simple command-line interface for chatting with the respective model.
+This directory contains Python scripts demonstrating chatbot implementations using various language models. Each script provides a command-line interface for interacting with different AI models.
 
-## 01_chat_with_openai.py
+## Available Chatbots
+
+### 01_chat_with_openai.py
+A simple chat interface for OpenAI's GPT models.
 
 This script uses the Langchain library to interact with the OpenAI API. It allows users to have a conversation with a GPT-3.5-turbo model.  Key features include:
 
@@ -11,31 +14,129 @@ This script uses the Langchain library to interact with the OpenAI API. It allow
 *   **Conversation Handling:** Manages conversation history and handles user input, including commands like 'exit' and 'clear'.
 *   **Error Handling:** Includes robust error handling for API requests and model initialization.
 
-## 02_chat_with_gemini.py
+### 02_chat_with_gemini.py
+A chat interface for Google's Gemini model with the following features:
+- **Environment Setup:** Loads Google API key from `.env` file
+- **Model Configuration:** Customizable temperature, top_p, and top_k parameters
+- **Conversation Features:**
+  - Maintains chat history
+  - Commands: 'exit', 'clear', 'history'
+  - Error handling for API requests
 
-This script utilizes the Google Generative AI library to interact with the Gemini Pro model.  It offers similar functionality to the OpenAI script but with Google's Gemini API:
+### 03_chat_with_ollama_local.py
+A local chat interface for Ollama models with these features:
+- **Local Model Support:** Works with any Ollama model
+- **Model Management:**
+  - Lists available models
+  - Allows switching models during chat
+  - Verifies model availability
+- **Commands:** 'exit', 'clear', 'model'
 
-*   **Environment Setup:** Loads Google API key from a `.env` file.  Ensure you have set the `GOOGLE_API_KEY` environment variable.
-*   **Model Initialization:** Initializes a Gemini model with generation configuration parameters (temperature, top_p, top_k).
-*   **Conversation Handling:** Manages conversation history and handles user input, including commands like 'exit', 'clear', and 'history' to view the chat history.
-*   **Error Handling:** Includes error handling for API requests and model initialization.
+### 04_chat_with_grok.py
+A chat interface for Grok AI with the following features:
+- **Environment Setup:** Requires Grok API key in `.env`
+- **Conversation Features:**
+  - Maintains chat history
+  - Supports standard chat commands
+  - Error handling for API requests
 
-## 03_chat_with_ollama_local.py
+### 05_chat_with_deepseek.py
+A chat interface for DeepSeek models via OpenRouter with these features:
+- **Multiple Models:** Supports various DeepSeek models
+- **Model Selection:** Choose from available models at runtime
+- **Commands:** 'exit', 'clear', 'model' to switch models
+- **Error Handling:** Robust API error handling
 
-This script interacts with a locally running Ollama instance. It provides a flexible chat interface that allows users to switch between different models available on the Ollama server.
+### app.py
+A Streamlit web application that combines all chat interfaces into a single, interactive web app with:
+- **Unified Interface:** Access all models from one place
+- **Modern UI:** Clean, responsive design
+- **Model Configuration:** Set API keys and parameters via UI
+- **Session Management:** Maintains separate chat histories
 
-*   **Connection Verification:** Verifies the connection to the Ollama server before starting the chat.
-*   **Model Listing:** Lists available models on the Ollama server.
-*   **Model Selection:** Allows users to choose a model from the list or use the default model.
-*   **Conversation Handling:** Manages conversation history and handles user input, including commands like 'exit', 'clear', and 'model' to switch models.
-*   **Error Handling:** Includes error handling for API requests and other potential issues.
+## Getting Started
 
+### Prerequisites
+- Python 3.8+
+- Required Python packages (install with `pip install -r requirements.txt`):
+  ```
+  python-dotenv
+  openai
+  google-generativeai
+  ollama
+  langchain-openai
+  langchain-google-genai
+  requests
+  streamlit
+  ```
 
-**To run these scripts:**
+### Setup
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd llm_learning/02_basic_chatbot
+   ```
 
-1.  **Install dependencies:**  Make sure you have the required libraries installed.  You can install them using `pip install -r requirements.txt`.
-2.  **Set API keys:** Create a `.env` file in the same directory and add your OpenAI API key (`OPENAI_API_KEY`) and Google API key (`GOOGLE_API_KEY`).  For Ollama, ensure your Ollama server is running on `localhost:11434`.
-3.  **Run the script:** Execute the desired script using `python <script_name>.py`.
+2. Create a `.env` file in the project root with your API keys:
+   ```
+   OPENAI_API_KEY=your_openai_api_key
+   GOOGLE_API_KEY=your_google_api_key
+   OPENROUTER_API_KEY=your_openrouter_api_key
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. For Ollama users, pull the desired models:
+   ```bash
+   ollama pull llama3.2:latest
+   ```
+
+### Running the Scripts
+
+#### Command Line Interface
+Run any of the individual chat scripts:
+```bash
+python 01_chat_with_openai.py
+python 02_chat_with_gemini.py
+python 03_chat_with_ollama_local.py
+python 04_chat_with_grok.py
+python 05_chat_with_deepseek.py
+```
+
+#### Web Interface
+Run the Streamlit app for a unified interface:
+```bash
+streamlit run app.py
+```
+
+## Features Comparison
+
+| Feature | OpenAI | Gemini | Ollama | DeepSeek | Grok |
+|---------|--------|--------|--------|----------|------|
+| Cloud-based | ✓ | ✓ | ✗ | ✓ | ✓ |
+| Local Execution | ✗ | ✗� | ✓ | ✗ | ✗ |
+| Model Selection | Limited | Limited | Full | Multiple | Limited |
+| API Key Required | ✓ | ✓ | ✗ | ✓ | ✓ |
+| Conversation History | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Custom Parameters | ✓ | ✓ | ✓ | ✓ | ✓ |
+
+## Troubleshooting
+
+- **API Connection Issues:** Ensure your API keys are correctly set in the `.env` file
+- **Model Not Found (Ollama):** Make sure to pull the model first using `ollama pull <model-name>`
+- **Module Not Found:** Install missing dependencies with `pip install -r requirements.txt`
+- **Rate Limiting:** If you encounter rate limits, try reducing the frequency of your requests or upgrade your API plan
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
 

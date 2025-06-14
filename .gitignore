@@ -4,6 +4,7 @@ env/
 .env/
 .venv/
 ENV/
+.windsurf/
 *.pyc
 __pycache__/
 *.py[cod]

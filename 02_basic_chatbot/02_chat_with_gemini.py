@@ -22,7 +22,7 @@ def initialize_model(api_key: str) -> genai.GenerativeModel:
         
         # Configure model settings
         model = genai.GenerativeModel(
-            model_name="gemini-pro",
+            model_name="gemini-2.0-flash-exp",
             generation_config={
                 "temperature": 0.7,
                 "top_p": 0.8,
